@@ -149,6 +149,72 @@
     </div>
 </div>
 
+<!-- 添加操作-模态框（Modal） -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">添加配置 </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="configKey" class="col-sm-2 control-label">Key</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="configKey" placeholder="配置项名称，如server.port"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="configValue" class="col-sm-2 control-label">Value</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="configValue" placeholder="配置项值，如80"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="configValue" class="col-sm-2 control-label">其他</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" id="configType" name="configType">
+                                <option value="PUBLIC">公有</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control" id="configStatus" name="configStatus">
+                                <option value="ON">启用</option>
+                                <option value="OFF">禁用</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="configEnvironment" name="configEnvironment">
+                                <option value="DEV">开发环境</option>
+                                <option value="STABLE">测试环境</option>
+                                <option value="PROD">生产环境</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">描述</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" placeholder="用一段简洁的话来描述此系统"
+                                      id="configDescription"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-danger" id="add">
+                    确定
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>
 
 </body>
 
@@ -166,6 +232,25 @@
                 window.location.reload();
             });
         });
+    });
+
+    $("#add").click(function () {
+        url = "/manage/api/config/add";
+        $.post(url,
+                {
+                    "key": $("#configKey").val(),
+                    "value": $("#configValue").val(),
+                    "type": $("#configType").find("option:selected").val(),
+                    "environment": $("#configEnvironment").find("option:selected").val(),
+                    "status": $("#configStatus").find("option:selected").val(),
+                    "description": $("#configDescription").val()
+                },
+                function (data, status) {
+                    if ("添加成功" != data) {
+                        alert(data);
+                    }
+                    window.location.reload();
+                });
     });
 </script>
 
