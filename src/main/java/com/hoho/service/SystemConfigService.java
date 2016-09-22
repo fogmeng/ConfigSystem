@@ -32,8 +32,10 @@ public class SystemConfigService {
     @Transactional
     public int removeConfig(long id, long cid){
         int result = systemConfigMapper.removeConfig(id, cid);
-        //在配置表中删除此配置
-        configMapper.deleteById(cid);
+        //如果此配置是私有配置，则在配置表中删除此配置
+        if(configMapper.findById(cid).getType().getNameEn().equals("PRIVATE")) {
+            configMapper.deleteById(cid);
+        }
         return result;
     }
 
