@@ -20,7 +20,8 @@
     1.将mariadb.sql导入到数据库中
     
     2.修改application.yml数据库的配置
-    
+        mysql用户需要在pom.xml里面添加mysql的依赖
+        
     3.在pom.xml目录下用mvn启动项目
       mvn spring-boot:run
 联系方式

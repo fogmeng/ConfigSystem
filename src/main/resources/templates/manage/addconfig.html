@@ -55,7 +55,7 @@
 <div style="padding: 20px;">
     <div style="margin-top: 60px;border-bottom: 2px solid red;padding-bottom: 50px;">
         <a class="btn btn-sm btn-primary" th:href="@{/manage/system/{id}/config(id=${sysId})}" style="float: left">返回系统配置</a>
-        <button class="btn btn-sm btn-success btnAdd" data-toggle="modal" data-target="#addModal" style="float: left;margin-left: 20px">
+        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addModal" style="float: left;margin-left: 20px">
             <span class="glyphicon glyphicon-plus"></span> 添加配置
         </button>
         <form class="form-inline" style="float: right;" th:action="@{/manage/system/{id}/public(id=${sysId})}" method="get">
